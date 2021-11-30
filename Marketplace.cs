@@ -13,14 +13,20 @@ namespace SQ_Term_Project_Internal
     {
         private static string marketPlaceConnection = "server=159.89.117.198;user=DevOSHT;database=cmp;port=3306;password=Snodgr4ss!";
         private static string localAddress = "server=localhost;user=;database=SQ;port=3306;password=";
-        // Get Contracts
+        /**
+        * @brief Get Contracts
+        * returns a list of contracts from the Contract MarketPlace
+        */
         public static List<Contract> getContracts() {
             string query = "select * from Contract;";
             List < Contract > contracts = Repository.LoadData<Contract, dynamic>(query, new { }, marketPlaceConnection);
             return contracts;
         }
 
-        // Fetch Existing Customers
+        /**
+        * @brief Get Existing Customers
+        * returns a list of clients stored in the local database
+        */
         public static List<Client> getExistingCustomers() {
             string query = "select * from client";
             List <Client> clients = Repository.LoadData<Client, dynamic>(query, new { }, localAddress);
