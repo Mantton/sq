@@ -28,24 +28,36 @@ namespace SQ_Term_Project_Internal
             port = newPort;
         }
 
-        //
-        private static void DisplayData(System.Data.DataTable table)
+        static public void SetPassword(string newPassword)
         {
-            foreach (System.Data.DataRow row in table.Rows)
-            {
-                foreach (System.Data.DataColumn col in table.Columns)
-                {
-                    Console.WriteLine("{0} = {1}", col.ColumnName, row[col]);
-                }
-                Console.WriteLine("============================");
-            }
+            password = newPassword;
         }
-        //
+
+        static public int CreateOrder(Contract contract)
+        {
+            string query = "INSERT INTO omnidb.order (clientName,jobName,quantity,origin,destination,vantype) VALUES " +
+                "(" +
+                "'" + contract.ContactName + "'," +
+                contract.JobName + "," +
+                contract.Quantity + "," +
+                "'" + contract.Origin + "'," +
+                "'" + contract.Destination + "'," +
+                contract.Vantype +
+                ");";
+
+            return SendQuery(query);
+        }
+
+        static public int CreateCustomer(string name)
+        {
+            string query = "insert into omnidb.client(clientName) values('" + name + "');";
+
+            return SendQuery(query);
+        }
 
         static public int SendQuery(string query)
         {
-            //string connectionString = "server=" + ip + ";user=root;database=omnicorp;port=" + port + ";password=" + password;
-            string connectionString = "server=159.89.117.198;user=DevOSHT;database=cmp;port=3306;password=Snodgr4ss!";
+            string connectionString = "server=" + ip + ";user=root;database=omnidb;port=" + port + ";password=" + password;
             MySqlConnection connection = new MySqlConnection(connectionString);
 
 
@@ -53,6 +65,7 @@ namespace SQ_Term_Project_Internal
             try
             {
                 connection.Open();
+
             }
             catch (Exception e)
             {
@@ -64,20 +77,6 @@ namespace SQ_Term_Project_Internal
                 //Set the query and send it to the database
                 MySqlCommand command = new MySqlCommand(query, connection);
                 command.ExecuteNonQuery();
-
-                MySqlDataReader rdr = command.ExecuteReader();
-
-                while (rdr.Read())
-                {
-                    Console.WriteLine(rdr.GetName(0));
-                    Console.WriteLine(rdr.GetName(0));
-                    Console.WriteLine(rdr.GetName(0));
-                    Console.WriteLine(rdr.GetName(0));
-                    Console.WriteLine(rdr.GetName(0));
-                    Console.WriteLine(rdr.GetName(0));
-
-                }
-
             }
             catch (Exception e)
             {

@@ -28,12 +28,12 @@ namespace SQ_Term_Project_Internal
         }
 
         // Add new Client
-        public static void addClient(string name) {
-            string sqlClientInsert = "insert into client (clientName) Values (@name);";
+        // public static void addClient(string name) {
+        //     string sqlClientInsert = "insert into client (clientName) Values (@name);";
             
-            Repository.SaveData(sqlClientInsert, new { name }, localAddress);
+        //     Repository.SaveData(sqlClientInsert, new { name }, localAddress);
 
-        }
+        // }
     }
 
    
